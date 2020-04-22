@@ -1,0 +1,25 @@
+.email {
+  width: 200px;
+  padding: 7px;
+  border: 2px solid orange;
+  outline: none;
+  color: orange;
+}
+#submit {
+  border: none;
+  background: orange;
+  outline: none;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#submit:hover {
+  opacity: 0.5;
+}
+.change-color {
+  background: black !important;
+}
