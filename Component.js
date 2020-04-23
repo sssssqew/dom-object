@@ -4,12 +4,15 @@ param tag(string): html element
       values(array): child elements  
 */
 
+//  _ 접두사 : Private 프로퍼티
 var Component = (function() {
   "use strict";
 
+  var _name = "";
+
   // values가 비어있다거나 아예 인자에 없다는건 추가하거나 변경하고 싶지 않고 이전 상태 그대로 두고 싶다는 의미다.
   // values 값이 하나라도 있어야 추가하거나 변경하고 싶다는 의미이므로 이때 추가하거나 변경한다.
-  function setAttributes(el, attrs) {
+  function _setAttributes(el, attrs) {
     if (
       attrs === undefined ||
       attrs === null ||
@@ -21,7 +24,7 @@ var Component = (function() {
     }
   }
 
-  function setValues(el, values) {
+  function _setValues(el, values) {
     if (values === undefined || values === null || values.length === 0) return;
     el.innerHTML = "";
     values.map(function(value) {
@@ -32,8 +35,8 @@ var Component = (function() {
   var create = function(tag, attrs, values) {
     var el = document.createElement(tag);
 
-    setAttributes(el, attrs);
-    setValues(el, values);
+    _setAttributes(el, attrs);
+    _setValues(el, values);
     return el;
   };
 
@@ -41,14 +44,22 @@ var Component = (function() {
     var targetEl = document.querySelector(selector);
     if (!targetEl) return;
 
-    setAttributes(targetEl, attrs);
-    setValues(targetEl, values);
+    _setAttributes(targetEl, attrs);
+    _setValues(targetEl, values);
     return targetEl;
   };
 
   return {
     create,
-    update
+    update,
+    get name() {
+      // 접근자 프로퍼티
+      return _name;
+    },
+    set name(value) {
+      // 접근자 프로퍼티
+      _name = value;
+    }
   };
 })();
 
@@ -79,6 +90,9 @@ window.onload = function() {
     Component.create("textarea", { class: "text-area" })
   ]);
   console.timeEnd("build dom with javascript");
+
+  Component.name = "main pgae"; // 접근자 프로퍼티 쓰기
+  console.log(Component.name); // 접근자 프로퍼티 읽기
 
   // console.time("build dom with html");
   // var mainDiv = `<div class="main">
