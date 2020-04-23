@@ -91,7 +91,7 @@ window.onload = function() {
   ]);
   console.timeEnd("build dom with javascript");
 
-  Component.name = "main pgae"; // 접근자 프로퍼티 쓰기
+  Component.name = "main pgae"; // 접근자 프로퍼티 쓰기 (데이터 캡슐화: 접근자 메서드를 통해서만 읽기, 쓰기 가능)
   console.log(Component.name); // 접근자 프로퍼티 읽기
 
   // console.time("build dom with html");
