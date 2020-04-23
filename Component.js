@@ -53,11 +53,11 @@ var Component = (function() {
     create,
     update,
     get name() {
-      // 접근자 프로퍼티
+      // 접근자 프로퍼티 (클로저)
       return _name;
     },
     set name(value) {
-      // 접근자 프로퍼티
+      // 접근자 프로퍼티 (클로저)
       _name = value;
     }
   };
