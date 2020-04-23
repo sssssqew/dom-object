@@ -4,7 +4,7 @@ param tag(string): html element
       values(array): child elements  
 */
 
-var Dom = (function() {
+var Component = (function() {
   "use strict";
 
   // values가 비어있다거나 아예 인자에 없다는건 추가하거나 변경하고 싶지 않고 이전 상태 그대로 두고 싶다는 의미다.
@@ -54,25 +54,29 @@ var Dom = (function() {
 
 window.onload = function() {
   console.log("load completed");
-  var formDiv = Dom.create("div", { class: "container", id: "list-wrapper" }, [
-    Dom.create("input", {
-      class: "email",
-      id: "email",
-      type: "text",
-      placeholder: "Type your email"
-    }),
-    Dom.create("input", {
-      id: "submit",
-      type: "submit",
-      value: "send email",
-      class: "btn"
-    })
-  ]);
+  var formDiv = Component.create(
+    "div",
+    { class: "container", id: "list-wrapper" },
+    [
+      Component.create("input", {
+        class: "email",
+        id: "email",
+        type: "text",
+        placeholder: "Type your email"
+      }),
+      Component.create("input", {
+        id: "submit",
+        type: "submit",
+        value: "send email",
+        class: "btn"
+      })
+    ]
+  );
 
   console.time("build dom with javascript");
-  var mainDiv = Dom.create("div", { class: "main" }, [
-    Dom.create("h1", { class: "title" }, ["main page"]),
-    Dom.create("textarea", { class: "text-area" })
+  var mainDiv = Component.create("div", { class: "main" }, [
+    Component.create("h1", { class: "title" }, ["main page"]),
+    Component.create("textarea", { class: "text-area" })
   ]);
   console.timeEnd("build dom with javascript");
 
@@ -92,7 +96,7 @@ window.onload = function() {
 
     // id가 root인 요소객체에 mainDiv 컴포넌트를 삽입힌다.
     // {}, [] 또는 null 자유자재로 설정할 수 있다. 또는 인자없이도 함수가 정상 실행된다.
-    var changedRoot = Dom.update("#root", null, [mainDiv]);
+    var changedRoot = Component.update("#root", null, [mainDiv]);
     console.log(changedRoot);
   };
 };
