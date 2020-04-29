@@ -80,7 +80,12 @@ window.onload = function() {
         type: "submit",
         value: "send email",
         class: "btn"
-      })
+      }),
+      Component.create("br"),
+      Component.create("label", null, [
+        "Counter: ",
+        Component.create("div", { "data-counter": "", class: "pretty" }, [0])
+      ])
     ]
   );
 
@@ -101,16 +106,51 @@ window.onload = function() {
   // </div>`;
   // console.timeEnd("build dom with html");
 
-  document.getElementById("root").append(formDiv);
+  Component.update("#root", null, [formDiv]);
 
-  document.getElementById("submit").onclick = function(e) {
-    console.log("clicked ");
+  // 이벤트 위임
+  document.addEventListener("click", function(e) {
+    var target = e.target;
+    // console.log(target.className);
+    // console.log(target.tagName); // 대문자 tag name
+    // console.log(target.dataset);
 
-    e.preventDefault();
+    if (target.id === "submit") {
+      console.log("clicked ");
 
-    // id가 root인 요소객체에 mainDiv 컴포넌트를 삽입힌다.
-    // {}, [] 또는 null 자유자재로 설정할 수 있다. 또는 인자없이도 함수가 정상 실행된다.
-    var changedRoot = Component.update("#root", null, [mainDiv]);
-    console.log(changedRoot);
-  };
+      e.preventDefault();
+
+      // id가 root인 요소객체에 mainDiv 컴포넌트를 삽입힌다.
+      // {}, [] 또는 null 자유자재로 설정할 수 있다. 또는 인자없이도 함수가 정상 실행된다.
+      var changedRoot = Component.update("#root", null, [mainDiv]);
+      console.log(changedRoot);
+    }
+    if (target.dataset.counter !== undefined) {
+      var updatedValue = parseInt(target.innerHTML) + 1;
+      Component.update(".pretty", null, [updatedValue]);
+      console.log(target.innerHTML);
+    }
+
+    // e.target의 클래스 이름이나 id 또는 tag name을 이용하여
+    // 다양한 타깃 요소에 대해 이벤트를 추가할 수 있다
+    //  위 if문을 아래 swtch case 문으로 변경할 수 있다
+
+    // switch(e.target.className){
+    //   case "INPUT":  handler1() break;
+    //   case "IMG": handler2() break;
+    //   case "FORM": handler3() break;
+    // }
+
+    // switch(e.target.tagName){
+    //   case "INPUT":  handler1() break;
+    //   case "IMG": handler2() break;
+    //   case "FORM": handler3() break;
+    // }
+
+    // switch(e.target.id){
+    //   case "INPUT":  handler1() break;
+    //   case "IMG": handler2() break;
+    //   case "FORM": handler3() break;
+    // }
+  });
 };
