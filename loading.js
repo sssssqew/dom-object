@@ -129,6 +129,8 @@ window.onload = function() {
         if (d[method] !== undefined) {
           console.log(d[method]);
           // 핸들러객체 handlerList에서 mehtod를 참조하여 실행
+          // 이벤트 핸들러는 event 객체만 넘길수 있어서 handler 는 모두 클로저를 이용함
+          // manageHandler함수도 클로저를 이용함
           handlerList[method](d[method])(e);
         }
       }
@@ -179,4 +181,9 @@ window.onload = function() {
   // 이벤트 위임 (event delegation)
   document.addEventListener("click", manageHandler(handlerList));
   document.addEventListener("keyup", manageHandler(handlerList));
+
+  // fetch 를 비동기에 사용하기 위한 래퍼함수를 하나 만들어서
+  // 4가지 CRUD를 하나의 함수에서 처리할 수 있게 하자
+
+  // 이벤트 객체를 만들어서 모델 뷰 컨토롤러간에 통신을 할 수 있게 하자
 };
